@@ -22,7 +22,7 @@
 
 **ANNA** (**A**utonomous **N**euromorphic **N**avigation **A**rchitecture) is an end-to-end, biologically grounded, and hardware-synthesizable neuromorphic navigation pipeline inspired by the celestial orientation and visual snapshot memory of the desert ant (*Cataglyphis fortis*).
 
-While conventional robotic SLAM and deep neural networks require watts of power on GPUs, ANNA executes continuous closed-loop 2D path integration and visual landmark recovery on a **sub-$5\ \mu\text{W}$ digital silicon architecture** consuming **$0.42\text{ pJ per Synaptic Operation}$** in the open-source **SkyWater 130nm CMOS** node.
+While conventional robotic SLAM and deep neural networks require watts of power on GPUs, ANNA executes continuous closed-loop 2D path integration and visual landmark recovery on a **sub-5 µW digital silicon architecture** consuming **0.42 pJ per Synaptic Operation** in the open-source **SkyWater 130nm CMOS** node.
 
 ```mermaid
 flowchart TD
@@ -61,25 +61,25 @@ flowchart TD
 ## ⚡ Key Highlights
 
 * **🧠 Biophysical Central Complex (CX):** 16-column Protocerebral Bridge (PB) continuous ring attractor tracking heading with zero drift, coupled to Fan-Shaped Body (FB) CPU4 velocity accumulators for dead-reckoning.
-* **👁️ Mushroom Body (MB) Landmark Memory:** 1,000-neuron Kenyon Cell sparse expansion ($k$-WTA APL feedback maintaining $<5\%$ firing) with 3-Factor reward-modulated STDP (dopaminergic Anti-Hebbian LTD) for single-shot skyline learning.
-* **🔁 Dual-Pathway Recovery:** Resolves catastrophic forced displacement ($6.40\text{ m}$) where pure dead-reckoning fails completely, recovering the nest with a **$67.73\%$ error reduction** ($p < 10^{-15}$).
+* **👁️ Mushroom Body (MB) Landmark Memory:** 1,000-neuron Kenyon Cell sparse expansion ($k$-WTA APL feedback maintaining &lt;5% firing) with 3-Factor reward-modulated STDP (dopaminergic Anti-Hebbian LTD) for single-shot skyline learning.
+* **🔁 Dual-Pathway Recovery:** Resolves catastrophic forced displacement (6.40 m) where pure dead-reckoning fails completely, recovering the nest with a **67.73% error reduction** ($p < 10^{-15}$).
 * **💻 Synthesizable SystemVerilog ASIC (IEEE 1800-2017):** Fully synthesizable digital hardware core with 25-bit Address-Event Representation (AER) packet router, 16-bit Q4.12 fixed-point integer arithmetic, and multiplierless bit-shift exponential leak logic.
 * **🔬 Silicon Post-Synthesis Metrics (SkyWater 130nm):**
-  * **Core Die Area:** $0.383\text{ mm}^2$ (21,920 logic gates)
-  * **Energy per SynOp ($E_{\text{SOP}}$):** **$0.42\text{ pJ / SynOp}$** ($>57,000\times$ lower energy than dense LSTM baselines)
-  * **Active Power Envelope:** **$4.87\ \mu\text{W}$** at $1.2\text{V}$, $50\text{ MHz}$ (sub-$5\ \mu\text{W}$)
+  * **Core Die Area:** 0.383 mm² (21,920 logic gates)
+  * **Energy per SynOp ($E_{\text{SOP}}$):** **0.42 pJ / SynOp** (&gt;57,000× lower energy than dense LSTM baselines)
+  * **Active Power Envelope:** **4.87 µW** at 1.2V, 50 MHz (sub-5 µW)
 
 ---
 
 ## 📊 Empirical Benchmarks
 
-### 1. Statistical Monte Carlo Homing ($N=50$ Trials)
-| Metric | Single Run | Monte Carlo Aggregate ($N=50$) | Ideal Target |
+### 1. Statistical Monte Carlo Homing (N = 50 Trials)
+| Metric | Single Run | Monte Carlo Aggregate ($N=50$) | Target Benchmark |
 | :--- | :--- | :--- | :--- |
-| **Final Homing Error ($\epsilon_{\text{home}}$)** | **$0.137\text{ m}$** | **$0.255 \pm 0.048\text{ m}$** | $0.000\text{ m}$ |
-| **Path Tortuosity Index ($\tau$)** | **$0.999 \approx 1.000$** | **$1.016 \pm 0.008$** | $1.000$ (Straight-line) |
-| **Neural Population Sparsity** | **$99.66\%$** | **$99.93\% \pm 0.01\%$** | $>95\%$ (Event-driven) |
-| **Energy Reduction vs. LSTM** | **$99.98\%$** | **$99.98\%$** | $>90\%$ savings |
+| **Final Homing Error ($\epsilon_{\text{home}}$)** | **0.137 m** | **0.255 ± 0.048 m** | 0.000 m (Centimeter-scale) |
+| **Path Tortuosity Index ($\tau$)** | **0.999 ≈ 1.000** | **1.016 ± 0.008** | 1.000 (Straight-line) |
+| **Neural Population Sparsity** | **99.66%** | **99.93% ± 0.01%** | &gt;95% (Event-driven silence) |
+| **Energy Reduction vs. LSTM** | **99.98%** | **99.98%** | &gt;90% savings (&gt;57,000×) |
 
 ### 2. Synthesized Silicon Characteristics (SkyWater 130nm)
 | Silicon Parameter | Synthesized Prototype Macro | Projected Full-Scale ASIC |
@@ -87,10 +87,10 @@ flowchart TD
 | **Neural Capacity** | 64 Vectorized LIF Neurons | 1,000 Kenyon Cells (Time-Multiplexed) |
 | **Synaptic Capacity** | 1,024 Weights (16-bit Q4.12) | 36 KB On-Chip SRAM Crossbar |
 | **Gate Count** | 21,920 NAND2 Equivalents | 28,400 NAND2 Equivalents |
-| **Die Area** | $0.383\text{ mm}^2$ ($383\ \mu\text{m} \times 383\ \mu\text{m}$) | $0.850\text{ mm}^2$ ($922\ \mu\text{m} \times 922\ \mu\text{m}$) |
+| **Die Area** | 0.383 mm² (383 µm × 383 µm) | 0.850 mm² (922 µm × 922 µm) |
 | **Operating Frequency** | 50.0 MHz (20 ns cycle time) | 50.0 MHz (20 ns cycle time) |
-| **Energy per SynOp ($E_{\text{SOP}}$)** | **$0.42\text{ pJ / SynOp}$** | **$0.45\text{ pJ / SynOp}$** |
-| **Total Active Power** | **$4.87\ \mu\text{W}$** | **$18.50\ \mu\text{W}$** |
+| **Energy per SynOp ($E_{\text{SOP}}$)** | **0.42 pJ / SynOp** | **0.45 pJ / SynOp** |
+| **Total Active Power** | **4.87 µW** | **18.50 µW** |
 
 ---
 
@@ -135,6 +135,9 @@ pytest -v
 
 ## 📁 Repository Structure
 
+<details open>
+<summary><b>Click to expand/collapse directory tree</b></summary>
+
 ```
 Project-ANNA/
 ├── docs/                                # Academic paper, LaTeX, and compiled PDF
@@ -170,6 +173,8 @@ Project-ANNA/
 ├── setup.py                             # Python package definition
 └── LICENSE                              # MIT License
 ```
+
+</details>
 
 ---
 
