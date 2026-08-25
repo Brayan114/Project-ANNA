@@ -12,7 +12,7 @@
 
 **A Microwatt-Scale Spiking Brain and Synthesizable ASIC Architecture for Autonomous Vector Path Integration and Landmark Navigation**
 
-[**Read the Paper (PDF)**](docs/ant_neuromorphic_research_paper.pdf) • [**Silicon RTL**](hw/rtl/) • [**Benchmarks**](experiments/) • [**Documentation**](docs/)
+[**Silicon RTL**](hw/rtl/) • [**Benchmarks**](experiments/) • [**Hardware Simulator**](hw/sim/) • [**Quickstart**](quickstart.py)
 
 </div>
 
@@ -140,14 +140,7 @@ pytest -v
 
 ```
 Project-ANNA/
-├── docs/                                # Academic paper, LaTeX, and compiled PDF
-│   ├── ant_neuromorphic_research_paper.pdf # Complete publication PDF (2.70 MB)
-│   ├── academic_paper_manuscript.md     # Full Markdown manuscript
-│   ├── manuscript.tex                   # LaTeX source
-│   ├── references.bib                   # BibTeX citations
-│   └── paper.typ                        # Typst source
-├── arxiv_package/                       # Ready-to-Upload ArXiv Preprint Bundle
-├── figures/                             # 300 DPI publication-grade figures
+├── figures/                             # 300 DPI publication-grade benchmark plots
 │   ├── exp1_path_integration.png
 │   ├── exp2_visual_navigation.png
 │   ├── exp3_chip_microarchitecture.png
@@ -180,13 +173,12 @@ Project-ANNA/
 
 ## 📖 Citation
 
-If you use ANNA or find this architecture helpful in your research, please cite:
+If you use ANNA in your research, please cite:
 
 ```bibtex
 @article{anna2026neuromorphic,
-  title={Ant-Inspired Neuromorphic Computing: A Microwatt-Scale Spiking Brain and Synthesizable ASIC Architecture for Autonomous Vector Path Integration and Landmark Navigation},
+  title={ANNA: Autonomous Neuromorphic Navigation Architecture},
   author={ANNA Research and Development Group},
-  journal={arXiv preprint arXiv:2608.xxxxx},
   year={2026},
   url={https://github.com/Brayan114/Project-ANNA}
 }
