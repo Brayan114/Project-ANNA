@@ -24,36 +24,36 @@
 
 While conventional robotic SLAM and deep neural networks require watts of power on GPUs, ANNA executes continuous closed-loop 2D path integration and visual landmark recovery on a **sub-$5\ \mu\text{W}$ digital silicon architecture** consuming **$0.42\text{ pJ per Synaptic Operation}$** in the open-source **SkyWater 130nm CMOS** node.
 
-```
-+--------------------------------------------------------------------------------------------------+
-|                                    ANNA SYSTEM ARCHITECTURE                                      |
-+--------------------------------------------------------------------------------------------------+
-|                                                                                                  |
-|   +--------------------------+       +-------------------------------+                           |
-|   | Celestial Compass Sensor | ----> | PB Ring Attractor Compass     | (16 Glomerular Columns)   |
-|   | (Polarized DRA E-vector) |       +-------------------------------+                           |
-|   +--------------------------+                      |                                            |
-|                                                     v                                            |
-|   +--------------------------+       +-------------------------------+                           |
-|   | Optic Flow Velocity      | ----> | FB CPU4 Path Integrator       | (Cosine Projected Memory) |
-|   | (Translational Sensor)   |       +-------------------------------+                           |
-|   +--------------------------+                      |                                            |
-|                                                     v                                            |
-|   +--------------------------+       +-------------------------------+                           |
-|   | 360 Panoramic Retina     | ----> | MB Kenyon Cells (k-WTA < 5%)  | (1000 Sparse Neurons)     |
-|   | (Compound Eye Skyline)   |       +-------------------------------+                           |
-|   +--------------------------+                      |                                            |
-|                                                     v                                            |
-|                                      +-------------------------------+                           |
-|                                      | 3-Factor R-STDP Dopamine LTD  | (Valleys of Familiarity)  |
-|                                      +-------------------------------+                           |
-|                                                     |                                            |
-|                                                     v                                            |
-|                                      +-------------------------------+                           |
-|                                      | Pontine Steering Comparator   | (Closed-Loop Kinematics)  |
-|                                      +-------------------------------+                           |
-|                                                                                                  |
-+--------------------------------------------------------------------------------------------------+
+```mermaid
+flowchart TD
+    subgraph SENSORS[" Biological Sensory Inputs "]
+        DRA["🧭 Celestial Compass Sensor<br/><i>(Polarized DRA E-vector)</i>"]
+        OF["⚡ Optic Flow Sensor<br/><i>(Translational Speed)</i>"]
+        EYE["👁️ 360° Panoramic Compound Eye<br/><i>(Horizon Skyline Sectors)</i>"]
+    end
+
+    subgraph CX[" Central Complex (CX) — Dead Reckoning "]
+        PB["Protocerebral Bridge (PB)<br/><b>16-Column Ring Attractor Compass</b>"]
+        FB["Fan-Shaped Body (FB)<br/><b>CPU4 Vector Path Integrator</b>"]
+    end
+
+    subgraph MB[" Mushroom Body (MB) — Visual Memory "]
+        KC["Kenyon Cells (KCs)<br/><b>1,000 Sparse Neurons (k-WTA &le; 5%)</b>"]
+        DAN["3-Factor R-STDP Engine<br/><b>Dopaminergic Anti-Hebbian LTD</b>"]
+        MBON["Mushroom Body Output (MBON)<br/><i>'Valleys of Familiarity'</i>"]
+    end
+
+    STEER["🎯 Pontine Motor Steering Comparator<br/><b>Closed-Loop Kinematics</b>"]
+
+    DRA --> PB
+    OF --> FB
+    PB -->|Azimuth Heading Bump| FB
+    EYE --> KC
+    KC --> DAN
+    DAN --> MBON
+
+    FB -->|Home Vector| STEER
+    MBON -->|Landmark Gradient| STEER
 ```
 
 ---
@@ -100,7 +100,7 @@ While conventional robotic SLAM and deep neural networks require watts of power 
 Clone the repository and install the dependencies:
 ```bash
 git clone https://github.com/Brayan114/Project-ANNA.git
-cd ANNA
+cd Project-ANNA
 pip install -r requirements.txt
 ```
 
@@ -136,13 +136,14 @@ pytest -v
 ## 📁 Repository Structure
 
 ```
-ANNA/
+Project-ANNA/
 ├── docs/                                # Academic paper, LaTeX, and compiled PDF
 │   ├── ant_neuromorphic_research_paper.pdf # Complete publication PDF (2.70 MB)
 │   ├── academic_paper_manuscript.md     # Full Markdown manuscript
 │   ├── manuscript.tex                   # LaTeX source
 │   ├── references.bib                   # BibTeX citations
 │   └── paper.typ                        # Typst source
+├── arxiv_package/                       # Ready-to-Upload ArXiv Preprint Bundle
 ├── figures/                             # 300 DPI publication-grade figures
 │   ├── exp1_path_integration.png
 │   ├── exp2_visual_navigation.png
@@ -163,9 +164,6 @@ ANNA/
 │   ├── dual_pathway_agent.py            # Unified CX+MB arbitration agent
 │   └── lif_neuron.py                    # Vectorized LIF biophysical dynamics
 ├── env/                                 # 2D continuous desert arena & panoramic vision
-│   ├── arena.py
-│   ├── vision.py
-│   └── sensors.py
 ├── experiments/                         # Reproducible benchmark experiments
 ├── tests/                               # Automated unit & hardware parity test suite
 ├── quickstart.py                        # Interactive 1-click demonstration script
